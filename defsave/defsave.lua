@@ -129,8 +129,10 @@ function M.load(file)
 	else
 		io.output(path)
 		local input_file = io.input(path)
-		local read_file = io.read()
-		loaded_file  = json.decode(read_file)
+		local  = io.read()
+		if read_file ~= nil then
+			loaded_file  = json.decode(read_file)
+		end
 		input_file:close()
 		-- loaded_file  = sys.load(path)
 	end
