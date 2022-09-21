@@ -1,0 +1,68 @@
+local defsave = require("defsave.defsave")
+
+function init(self)
+	defsave.appname = "defsave_example"
+	defsave.default_data = require("example.default_data")
+	
+	--defsave.verbose = false
+	
+	defsave.load("config")
+	defsave.load("player")
+	
+	print(defsave.get("player", "score"))
+
+	print(defsave.isset("player", "score"))
+	print(defsave.key_exists("player", "score"))
+	
+	print(defsave.is_loaded("config"))
+	print(defsave.is_loaded("configg"))
+	
+	--pprint(defsave.loaded)
+
+	defsave.autosave = true
+	
+	--pprint(defsave.loaded)
+	
+	--print(defsave.get("config", "missing_key"))
+	
+	--print(defsave.get_file_path("config"))
+	
+	--print(defsave.load())
+	--print(defsave.get("config", "audio").music)
+	--pprint(defsave.get("config", "audio"))
+	
+	--defsave.set("config", "fullscreen", false)
+	
+	local temp = defsave.obfuscate("Hello, this is a test of your broadcasting service. Please stand by.", defsave.obfuscation_key)
+	print(defsave.obfuscate(temp, defsave.obfuscation_key))
+	
+	--defsave.save("config")
+	--defsave.save("config", true)
+	defsave.save_all(true)
+
+	pprint(defsave.get("player", "bank"))
+end
+
+function final(self)
+	defsave.save_all()
+end
+
+function update(self, dt)
+	defsave.set("player", "score", defsave.get("player", "score") + dt)
+	defsave.update(dt)
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end

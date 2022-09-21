@@ -1,0 +1,20 @@
+[project]
+title = DefSave
+custom_resources = example_profile
+dependencies#0 = https://github.com/britzl/gooey/archive/6.5.1.zip
+
+[library]
+include_dirs = defsave
+
+[input]
+game_binding = /example/main.input_bindingc
+
+[bootstrap]
+main_collection = /example/main.collectionc
+
+[script]
+shared_state = 1
+
+[gui]
+max_count = 64
+

@@ -1,0 +1,48 @@
+local defsave = require("defsave.defsave")
+local profile = require("defsave.profile")
+
+function init(self)
+	defsave.set_appname("DefSave Profile Extension")
+	profile.verbose = true
+	profile.enable_obfuscation = true
+	profile.template_data = require("example_profile.template_data")
+	profile.init()	
+	if not profile.profile_exists("defold") then
+		profile.create_profile("defold", nil, {score = 9999999})
+	end
+	print(profile.is_profile_active("defold"))
+	if profile.is_profile_active("defold") == false then
+		profile.set_active_profile("defold")
+	end
+	print(profile.is_profile_active("defold"))
+	local player = profile.create_profile(nil, "casual_player", nil)
+	pprint(player)
+	profile.set_active_profile(player)
+	pprint(profile.get_profiles())
+	pprint(profile.profiles)
+	print(profile.get_value("defold", "score"))
+end
+
+function final(self)
+	profile.final()
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Remove this function if not needed
+end
