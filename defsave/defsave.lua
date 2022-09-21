@@ -127,7 +127,7 @@ function M.load(file)
 		-- use `localStorage` instead because of this limitation on default IndexedDB storage used by Defold
 		loaded_file = json.decode(html5.run([[(function(){try{return window.localStorage.getItem(']] .. path .. [[')||'{}'}catch(e){return'{}'}})()]]))
 	else
-		io.open(path)
+		local opener = io.open(path)
 		local input_file = io.input(path)
 		local read_file = io.read()
 		if read_file ~= nil then
