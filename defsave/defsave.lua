@@ -136,10 +136,10 @@ function M.load(file)
 			else
 				loaded_file  = {}
 			end
+			input_file:close()
 		else
 			loaded_file  = {}
 		end
-		input_file:close()
 		-- loaded_file  = sys.load(path)
 	end
 
