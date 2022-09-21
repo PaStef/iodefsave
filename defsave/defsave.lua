@@ -128,10 +128,14 @@ function M.load(file)
 		loaded_file = json.decode(html5.run([[(function(){try{return window.localStorage.getItem(']] .. path .. [[')||'{}'}catch(e){return'{}'}})()]]))
 	else
 		local opener = io.open(path)
-		local input_file = io.input(path)
-		local read_file = io.read()
-		if read_file ~= nil then
-			loaded_file  = json.decode(read_file)
+		if opener ~= nil then
+			local input_file = io.input(path)
+			local read_file = io.read()
+			if read_file ~= nil then
+				loaded_file  = json.decode(read_file)
+			else
+				loaded_file  = {}
+			end
 		else
 			loaded_file  = {}
 		end
