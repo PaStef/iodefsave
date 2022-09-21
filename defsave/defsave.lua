@@ -129,7 +129,7 @@ function M.load(file)
 	else
 		io.output(path)
 		local input_file = io.input(path)
-		local  = io.read()
+		local read_file = io.read()
 		if read_file ~= nil then
 			loaded_file  = json.decode(read_file)
 		end
