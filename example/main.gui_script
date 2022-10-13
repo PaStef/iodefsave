@@ -3,23 +3,50 @@ local defsave = require("defsave.defsave")
 function init(self)
 	defsave.appname = "defsave_example"
 	defsave.default_data = require("example.default_data")
+
+	defsave.load("config")
+	defsave.load("player")
+
+	local audio = defsave.get("config", "audio")
+	local score = defsave.get("player", "score")
+	local fullscreen = defsave.get("config", "fullscreen")
+	pprint(audio)
+	pprint(score)
+	pprint(fullscreen)
+	defsave.set("config", "fullscreen", not fullscreen)
+	defsave.set("player", "score", score+1)
+	audio["sfx"]=audio["sfx"]+1
+	audio["music"]=audio["music"]+1
+	defsave.set("config", "audio", audio)
+	
+	defsave.save_all(true)
+	
+	-- local temp = {"false","pop","hop"}
+	-- local cont = table.concat(temp)
+	-- for k, v in pairs(temp) do
+	-- 	k = defsave.obfuscate(k)
+	-- 	v = defsave.obfuscate(v)
+	-- end
+	-- pprint(temp)
+	-- local temp_obfs = defsave.obfuscate(temp, "defsave")
+	-- pprint("OBFUSCATED:",temp_obfs)
+	-- local temp_deobfs = defsave.obfuscate(temp_obfs, "defsave")
+	-- print("DEOBFUSCATED:",temp_deobfs)
 	
 	--defsave.verbose = false
 	
-	defsave.load("config")
-	defsave.load("player")
-	
-	print(defsave.get("player", "score"))
+	-- 
+	-- print("SCORE:",defsave.get("player", "score"))
 
-	print(defsave.isset("player", "score"))
-	print(defsave.key_exists("player", "score"))
+	-- print(defsave.isset("player", "score"))
+	-- print(defsave.key_exists("player", "score"))
 	
-	print(defsave.is_loaded("config"))
-	print(defsave.is_loaded("configg"))
+	-- print(defsave.is_loaded("config"))
+	-- print(defsave.is_loaded("configg"))
 	
 	--pprint(defsave.loaded)
 
-	defsave.autosave = true
+	-- defsave.autosave = true
 	
 	--pprint(defsave.loaded)
 	
@@ -33,23 +60,23 @@ function init(self)
 	
 	--defsave.set("config", "fullscreen", false)
 	
-	local temp = defsave.obfuscate("Hello, this is a test of your broadcasting service. Please stand by.", defsave.obfuscation_key)
-	print(defsave.obfuscate(temp, defsave.obfuscation_key))
+	
+	-- local temp = defsave.obfuscate("Hello, this is a test of your broadcasting service. Please stand by.", defsave.obfuscation_key)
+	-- print("OBFUSC",defsave.obfuscate(temp, defsave.obfuscation_key))
 	
 	--defsave.save("config")
 	--defsave.save("config", true)
-	defsave.save_all(true)
 
-	pprint(defsave.get("player", "bank"))
+	-- pprint(defsave.get("player", "bank"))
 end
 
 function final(self)
-	defsave.save_all()
+	-- defsave.save_all()
 end
 
 function update(self, dt)
-	defsave.set("player", "score", defsave.get("player", "score") + dt)
-	defsave.update(dt)
+	-- defsave.set("player", "score", defsave.get("player", "score") + dt)
+	-- defsave.update(dt)
 end
 
 function on_message(self, message_id, message, sender)

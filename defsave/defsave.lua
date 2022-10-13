@@ -130,9 +130,11 @@ function M.load(file)
 		local opener = io.open(path)
 		if opener ~= nil then
 			local input_file = io.input(path)
-			local read_file = io.read()
+			local read_file = input_file:read("*a")
 			if read_file ~= nil then
-				loaded_file  = json.decode(read_file)
+				local inflated = zlib.inflate(read_file)
+				local deobfuscated_data = M.obfuscate(inflated)
+				loaded_file  = json.decode(deobfuscated_data)
 			else
 				loaded_file  = {}
 			end
@@ -205,7 +207,9 @@ function M.save(file, force)
 	else
 		local output_file = io.output(path)
 		local encoded_data = json.encode(M.loaded[file].data)
-		is_save_successful = io.write(encoded_data)
+		local obfuscated_data = M.obfuscate(encoded_data)
+		local deflated = zlib.deflate(obfuscated_data)
+		is_save_successful = io.write(deflated)
 		output_file:flush()
 		output_file:close()
 		-- is_save_successful = sys.save(path, M.loaded[file].data)
